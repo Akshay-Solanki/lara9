@@ -3,29 +3,32 @@
 namespace App\ModelHelpers;
 
 use App\ModelHelpers\Fields\Field;
+use Illuminate\Database\Eloquent\Model;
 
 class SaveModel {
 
     public function __construct(private Model $model,private array $data)
     {}
 
-    public function execute()
+    public function execute(): Model
     {
         foreach($this->data as $column => $value){
             
             $this->model->{$column} = $this
-                ->saveableField($column)
+                ->saveableFields($column)
                 ->setValue($value)
                 ->execute();
             
         }
 
-        return $this->model->save();
+        $this->model->save();
+        
+        return $this->model;
     }
 
-    public function saveableField($column) :Field
+    public function saveableFields($column) :Field
     {
-        return $this->model->savebleFields()[$column];
+        return $this->model->saveableFields()[$column];
     }
 
 }

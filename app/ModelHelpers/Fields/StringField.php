@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ModelHelpers;
+namespace App\ModelHelpers\Fields;
 
 
 class StringField extends Field {
@@ -9,7 +9,7 @@ class StringField extends Field {
 
     public function setValue($value)
     {
-        $this->value;
+        $this->value = $value;
 
         return $this;
     }

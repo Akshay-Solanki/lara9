@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ModelHelpers;
+namespace App\ModelHelpers\Fields;
 
 
 class EnumField extends Field {

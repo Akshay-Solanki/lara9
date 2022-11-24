@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Inertia\Inertia;
+use App\Models\Store;
 use Illuminate\Http\Request;
+use App\ModelHelpers\SaveModel;
 use App\Http\Requests\CreateStoreRequest;
 
 class StoreController extends Controller
@@ -20,14 +22,11 @@ class StoreController extends Controller
 
     public function store(CreateStoreRequest $request)
     {
-        $data = $request->validated();
+        $data = $request->validated() + ['created_by' => auth()->id()];
 
-        $store = new Store;
-        $store->name = $request->name;
-        $store->created_by = auth()->id();
-        $store->save();
+        $store = (new SaveModel(new Store, $data))->execute();
 
-        
+        return redirect()->route('stores.index');
 
     }
 }
