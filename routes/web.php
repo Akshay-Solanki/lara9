@@ -29,10 +29,10 @@ Route::get('/', function () {
 
 
 
-Route::group(['middlewares'=>['auth', 'verified']],function(){
+Route::group(['middleware'=>['auth', 'verified']],function(){
 
     Route::get('dashboard' , [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/categories' , [CategoryController::class, 'index'])->name('categories');
+    Route::resource('categories' , CategoryController::class);
     Route::resource('stores' , StoreController::class);
 });
 

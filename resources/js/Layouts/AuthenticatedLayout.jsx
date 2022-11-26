@@ -3,10 +3,12 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/inertia-react';
+import { Link, usePage } from '@inertiajs/inertia-react';
+import Alert from '@/Components/Alert/Alert';
 
 export default function Authenticated({ auth, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const { flash } = usePage().props;
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -27,7 +29,7 @@ export default function Authenticated({ auth, header, children }) {
                                 <NavLink href={route('stores.index')} active={route().current('stores.*')}>
                                     Stores
                                 </NavLink>
-                                <NavLink href={route('categories')} active={route().current('categories')}>
+                                <NavLink href={route('categories.index')} active={route().current('categories')}>
                                     Categories
                                 </NavLink>
                             </div>
@@ -119,9 +121,15 @@ export default function Authenticated({ auth, header, children }) {
 
             {header && (
                 <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
+                        <Alert type='success' alert={flash.success} />
+                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {header}
+                    </div>
                 </header>
             )}
+
+
+
 
             <main>{children}</main>
         </div>
